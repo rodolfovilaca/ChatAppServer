@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Created-By: Bundle
+Class-Path: ./lib/org.rodolfo.banco.jar ./lib/sqlite-jdbc-3.18.0.jar
+Main-Class: Main

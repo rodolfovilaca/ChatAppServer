@@ -1,0 +1,1 @@
+jar cfm ChatAppServer.jar MANIFEST.MF *.class org.rodolfo.banco.jar sqlite-jdbc-3.18.0.jar
