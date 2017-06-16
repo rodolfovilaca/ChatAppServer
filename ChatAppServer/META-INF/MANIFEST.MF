@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Class-Path: ./org.rodolfo.bancodedadosmysql.jar ./mysql-connector-java
+ -5.1.42-bin.jar
+Created-By: Bundle
+Main-Class: Main
+
