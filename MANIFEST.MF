@@ -1,4 +1,4 @@
 Manifest-Version: 1.0
 Created-By: Bundle
-Class-Path: ./lib/org.rodolfo.banco.jar ./lib/sqlite-jdbc-3.18.0.jar
+Class-Path: ./libs/org.rodolfo.bancodedadosmysql.jar ./libs/mysql-connector-java-5.1.42-bin.jar
 Main-Class: Main

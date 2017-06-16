@@ -37,11 +37,11 @@ public class ThreadServidor extends Thread {
 						Estado estado = mensagemRecebida.getEstado();
 						if(estado.equals(Estado.CONECTADO)){
 							boolean estaConectado = conectar(mensagemRecebida.getUsuario().getNome(), output);
-							if(estaConectado && !mensagemRecebida.getMensagem().equals("logando")){
-								mensagemRecebida.getUsuario().salvarBancoDeDados();
-								mensagemRecebida.salvarBancoDeDados();	
+							boolean usuarioSalvo = mensagemRecebida.getUsuario().salvarBancoDeDados();
+							if(usuarioSalvo && estaConectado && !mensagemRecebida.getMensagem().equals("logando")){
 								System.out.println("mensagem recebida");
 								enviarTodos(mensagemRecebida);
+								new Thread(()-> mensagemRecebida.salvarBancoDeDados()).start();
 							}
 						}else 
 						{

@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.rodolfo.banco.BancoDeDados;
-import org.rodolfo.banco.Linha;
+import org.rodolfo.bancodedadosmysql.BancoDeDados;
+import org.rodolfo.bancodedadosmysql.Linha;
 
 public class Mensagem implements Serializable{
 	static final long serialVersionUID = 3632977338254009699L;
@@ -70,6 +70,7 @@ public class Mensagem implements Serializable{
     public boolean salvarBancoDeDados() {
     	boolean enviadoDB = BancoDeDados.inserir(ADICIONAR_MENSAGEM +"('"+this.getMensagem()+"','"+this.getUsuario().getForeignKeyId()+"','"+this.getHora()+"')");
     	if(enviadoDB){
+    		addItemLista(this);
     		return true;
     	}
     	return false;

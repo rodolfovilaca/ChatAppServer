@@ -1,7 +1,7 @@
 import java.io.IOException;
 import java.net.ServerSocket;
 
-import org.rodolfo.banco.BancoDeDados;
+import org.rodolfo.bancodedadosmysql.BancoDeDados;
 
 import br.chatapp.dao.Mensagem;
 
