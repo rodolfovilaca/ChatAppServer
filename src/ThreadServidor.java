@@ -30,7 +30,7 @@ public class ThreadServidor extends Thread {
 	public void run() {
 		try {
 			System.out.println("Cliente Conectado");
-			while (true) {
+			while (socket.isConnected()) {
 				try{
 					Mensagem mensagemRecebida = (Mensagem) input.readObject();
 					if (mensagemRecebida != null) {
