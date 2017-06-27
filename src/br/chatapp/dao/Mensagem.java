@@ -24,7 +24,7 @@ public class Mensagem implements Serializable{
     }
 
     public enum Estado{
-    	CONECTADO, DISCONECTADO;
+    	CONECTADO, DESCONECTADO, CONECTANDO;
     }
     
     public Estado getEstado(){
@@ -68,7 +68,7 @@ public class Mensagem implements Serializable{
     }
     
     public boolean salvarBancoDeDados() {
-    	boolean enviadoDB = BancoDeDados.inserir(ADICIONAR_MENSAGEM +"('"+this.getMensagem()+"','"+this.getUsuario().getForeignKeyId()+"','"+this.getHora()+"')");
+    	boolean enviadoDB = BancoDeDados.pegarInstancia().inserir(ADICIONAR_MENSAGEM +"('"+this.getMensagem()+"','"+this.getUsuario().getForeignKeyId()+"','"+this.getHora()+"')");
     	if(enviadoDB){
     		addItemLista(this);
     		return true;
@@ -79,7 +79,7 @@ public class Mensagem implements Serializable{
     @SuppressWarnings("rawtypes")
 	public static ArrayList<Mensagem> buscarTodas() {
 
-        List<Linha> tabela = BancoDeDados.buscar("SELECT * FROM lista_mensagens");
+        List<Linha> tabela = BancoDeDados.pegarInstancia().buscar("SELECT * FROM lista_mensagens");
         if(tabela != null){
         	for (Linha linha : tabela) {
         		

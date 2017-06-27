@@ -14,6 +14,8 @@ public class ThreadServidor extends Thread {
 	private ObjectOutputStream output;
 	private Socket socket;
 	private static Map<String, ObjectOutputStream> listaDeUsuariosOnline = new HashMap<String, ObjectOutputStream>();
+	private boolean estaConectado = false;
+	private boolean usuarioSalvo = false;
 	
 	public ThreadServidor(Socket socket) {
 		this.socket = socket;
@@ -35,17 +37,25 @@ public class ThreadServidor extends Thread {
 					Mensagem mensagemRecebida = (Mensagem) input.readObject();
 					if (mensagemRecebida != null) {
 						Estado estado = mensagemRecebida.getEstado();
-						if(estado.equals(Estado.CONECTADO)){
-							boolean estaConectado = conectar(mensagemRecebida.getUsuario().getNome(), output);
-							boolean usuarioSalvo = mensagemRecebida.getUsuario().salvarBancoDeDados();
-							if(usuarioSalvo && estaConectado && !mensagemRecebida.getMensagem().equals("logando")){
-								System.out.println("mensagem recebida");
-								enviarTodos(mensagemRecebida);
-								new Thread(()-> mensagemRecebida.salvarBancoDeDados()).start();
+						switch (estado) {
+						case CONECTANDO:{
+							estaConectado = conectar(mensagemRecebida.getUsuario().getNome(), output);
+							usuarioSalvo = mensagemRecebida.getUsuario().salvarBancoDeDados();
 							}
-						}else 
-						{
+							break;
+						case CONECTADO:{
+								if(usuarioSalvo && estaConectado){
+									System.out.println("mensagem recebida");
+									enviarTodos(mensagemRecebida);
+									new Thread(()-> mensagemRecebida.salvarBancoDeDados()).start();
+								}
+							}
+							break;
+						case DESCONECTADO:
 							desconectar(mensagemRecebida.getUsuario().getNome());
+							break;
+						default:
+							break;
 						}
 					}
 				}catch (ClassNotFoundException e) {
@@ -64,6 +74,7 @@ public class ThreadServidor extends Thread {
 			}
 		}
 	}
+	
 	private void desconectar(String usuario) {
 		if (usuario != null) {
 			listaDeUsuariosOnline.remove(usuario);
@@ -77,13 +88,14 @@ public class ThreadServidor extends Thread {
 		}
 		return false;
 	}
+	
 	public static void enviarTodos(Mensagem mensagem){
 		listaDeUsuariosOnline.forEach((nome,stream) -> {
 			try{
 				stream.writeObject(mensagem);
 				stream.reset();
 			}catch (IOException e) {
-				System.out.println("SendAll() " + e.getMessage());
+				System.out.println("enviarTodos() " + e.getMessage());
 			}
 		});
 	}

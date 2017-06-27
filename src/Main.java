@@ -7,7 +7,7 @@ import br.chatapp.dao.Mensagem;
 
 public class Main {
 	public static void main(String[] args) {
-		if(BancoDeDados.conectar()){
+		if(BancoDeDados.pegarInstancia().conectar()){
 			Mensagem.buscarTodas();
 			try (ServerSocket serverSocket = new ServerSocket(5000)) {
 				while (true) {
@@ -17,6 +17,6 @@ public class Main {
 				System.out.println("Erro Servidor Main: " + e.getMessage());
 			}
 		}
-		BancoDeDados.fecharConexao();
+		BancoDeDados.pegarInstancia().fecharConexao();
 	}
 }

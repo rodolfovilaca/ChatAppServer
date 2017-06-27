@@ -27,14 +27,14 @@ public class Usuario implements Serializable{
     }
     
     public int getForeignKeyId(){
-    	int keyId = BancoDeDados.buscarId("SELECT usuario_id FROM Usuario WHERE usuario_nome = '"+this.getNome()+"';");
+    	int keyId = BancoDeDados.pegarInstancia().buscarId("SELECT usuario_id FROM Usuario WHERE usuario_nome = '"+this.getNome()+"';");
     	return keyId;
     }
     
     public boolean salvarBancoDeDados() {
-    	int buscaUsuario = BancoDeDados.buscarId("SELECT * FROM Usuario WHERE usuario_nome = '"+this.getNome()+"';");
+    	int buscaUsuario = BancoDeDados.pegarInstancia().buscarId("SELECT * FROM Usuario WHERE usuario_nome = '"+this.getNome()+"';");
     	if(buscaUsuario == 0){
-    		BancoDeDados.inserir(ADICIONAR_USUARIO+"('"+this.getNome()+"')");
+    		BancoDeDados.pegarInstancia().inserir(ADICIONAR_USUARIO+"('"+this.getNome()+"')");
     	}
         return true;
     }
