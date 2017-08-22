@@ -3,7 +3,7 @@
 A back-end server side message dispatcher that works with a client(https://github.com/rodolfovilaca/ChatAppClient). It's a multithreaded program that broadcasts all messages to clients and saves all its timeline in a MySQL database.
 
 ## Design Patterns
-- Singleton: One object created to access MySQL and responsible to do save and request operations as we don't want several objects doing the same operations that could cause inconsistency data.
+- Singleton: A single object responsible to communicate with MySQL (CRUD operations) as we don't want several connections to the DB.
 - DAO(Data Access Objects): model used to create objects in the program and save them as data in MySQL.
 
 # Instructions
