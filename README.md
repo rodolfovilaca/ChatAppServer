@@ -1,6 +1,6 @@
 # ChatApp Server
 ## Summary
-A back-end server side program to a ChatApp(https://github.com/rodolfovilaca/ChatAppClient). It's a multithreaded program that broadcasts all messages to clients and saves all its timeline in a MySQL database.
+A back-end server side message dispatcher that works with a client(https://github.com/rodolfovilaca/ChatAppClient). It's a multithreaded program that broadcasts all messages to clients and saves all its timeline in a MySQL database.
 
 ## Design Patterns
 - Singleton: One object created to access MySQL and responsible to do save and request operations as we don't want several objects doing the same operations that could cause inconsistency data.
